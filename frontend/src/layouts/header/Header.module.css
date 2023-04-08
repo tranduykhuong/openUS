@@ -1,0 +1,32 @@
+.header {
+  width: 100vw;
+  background-color: aquamarine;
+  position: -webkit-sticky;
+  position: sticky;
+  top: 0;
+  font-weight: 200;
+}
+
+.font-texts{
+  font-size: 10px;
+}
+
+.social-link {
+  width: 30px;
+  height: 30px;
+  border: 1px solid #ddd;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #666;
+  border-radius: 50%;
+  transition: all 0.3s;
+  font-size: 0.5rem;
+}
+
+.social-link:hover,
+.social-link:focus {
+  background: #ddd;
+  text-decoration: none;
+  color: #555;
+}
