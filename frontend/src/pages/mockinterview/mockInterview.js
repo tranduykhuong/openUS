@@ -6,6 +6,7 @@ import { AudioRecorder, useAudioRecorder } from 'react-audio-voice-recorder';
 import Webcam from 'react-webcam';
 import adapter from 'webrtc-adapter';
 import axios from 'axios';
+import Evaluate from '../evaluate/Evaluate';
 
 const MockInterview = () => {
     const [first, setFirst] = useState(true);
@@ -15,18 +16,19 @@ const MockInterview = () => {
     const [idInterview, setInterview] = useState('');
     const [url, setUrl] = useState('');
     const [duration, setDuration] = useState(0);
+    const [evaluate, setEvaluate] = useState(true);
 
     const handleProgress = (progress) => {
         setCurrentTime(progress.playedSeconds);
 
-      console.log(progress.playedSeconds);
-      if (duration > 0 && progress.playedSeconds > duration - 1.5) {
-        if (first) {
-          setFirst(false);
-          setUrl(data.urlVideo);
-        } else {
-          setUrl('https://www.youtube.com/shorts/NHo6oSl1e3g');
-        }
+        // console.log(progress.playedSeconds);
+        if (duration > 0 && progress.playedSeconds > duration - 1.7) {
+            if (first) {
+                setFirst(false);
+                setUrl(data.urlVideo);
+            } else {
+                setUrl('https://www.youtube.com/shorts/NHo6oSl1e3g');
+            }
         }
     };
 
@@ -40,51 +42,50 @@ const MockInterview = () => {
     };
 
     const handleEnded = () => {
-      
-      // setUrl(data.urlVideo);
+        // setUrl(data.urlVideo);
     };
     const webcamRef = useRef(null);
 
     const capture = () => {
         const imageSrc = webcamRef.current.getScreenshot();
         // handle image source here
-  };
+    };
 
-  const handleStopRecord = async () => {
-    recorderControls.stopRecording();
+    const handleStopRecord = async () => {
+        recorderControls.stopRecording();
 
-    // convert text
-    
+        // convert text
 
-    // get api answer
-    const postAnswer = await axios.post(`http://127.0.0.1:5000/api/v1/interview/answer/${idInterview}`, {
-      idQuestion: data.idQuestion,
-      answer: 'LAY CONVERT'
-    });
+        // get api answer
+        const postAnswer = await axios.post(`http://127.0.0.1:5000/api/v1/interview/answer/${idInterview}`, {
+            idQuestion: data.idQuestion,
+            answer: 'LAY CONVERT',
+        });
 
-    console.log(postAnswer);
-    setUrl(postAnswer.data.data.urlVideo);
-    setData(postAnswer.data.data);
-  }
-  
-  useEffect(() => {
-    const createInterview = async () => {
-      try {
-        const res = await axios.post('http://127.0.0.1:5000/api/v1/interview', { idUser: '6431215242e1efd8f6871dbc' });
-        setData(res.data.data);
-        setInterview(res.data.data.idInterview);
-        if (res.data.data.idQuestion === 1) {
-          setUrl(res.data.data.urlIntro);
-        } else {
-          setUrl(res.data.data.urlVideo);
-        }
-      } catch (error) {
-       console.log(error); 
-      }
-    }
-    
-    createInterview();
-  }, []);
+        setUrl(postAnswer.data.data.urlVideo);
+        setData(postAnswer.data.data);
+    };
+
+    useEffect(() => {
+        const createInterview = async () => {
+            try {
+                const res = await axios.post('http://127.0.0.1:5000/api/v1/interview', {
+                    idUser: '6431215242e1efd8f6871dbc',
+                });
+                setData(res.data.data);
+                setInterview(res.data.data.idInterview);
+                if (res.data.data.idQuestion === 1) {
+                    setUrl(res.data.data.urlIntro);
+                } else {
+                    setUrl(res.data.data.urlVideo);
+                }
+            } catch (error) {
+                console.log(error);
+            }
+        };
+
+        createInterview();
+    }, []);
 
     return (
         <div className={classes.wrapContentVideo}>
@@ -105,6 +106,8 @@ const MockInterview = () => {
                     />
                 )}
             </div>
+
+            {evaluate && <Evaluate/>}
 
             <div className={classes.wrapVideoAudio}>
                 <div className={classes.videoContent1}>

@@ -28,6 +28,7 @@ const Navigation = () => {
                     <Route path="/field" name="fieldInterview" element={<FieldInterview />} />
                     <Route path="/mockinter" name="mockInterview" element={<MockInterview />} />
 
+                    <Route path="/" name="notFound" redirectPath="/home" />
                     <Route path="*" name="notFound" element={<NotFound />} />
                 </Route>
             </Routes>

@@ -1,18 +1,30 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Button from 'react-bootstrap/Button';
 import classes from './Header.module.css';
 import { Loading } from '../../components/loading/Loading';
 import ButtonCT from '../../components/button/ButtonCT';
 import Slider from '../Slider/Slider';
 import { useNavigate } from 'react-router';
+import avt from '../../assets/imgs/avt.jpg'
 
 const Header = () => {
     const [logined, setLogined] = useState(false);
-    const navigate = useNavigate()
+    const navigate = useNavigate();
     const logoClick = () => {
         navigate('/');
     };
 
+    useEffect(() => {
+        if (localStorage.getItem('logined')) {
+            setLogined(true);
+        }
+    });
+
+    const handleLogout = () => {
+        setLogined(false);
+        navigate('/home');
+        localStorage.removeItem('logined');
+    };
 
     return (
         <div className={classes.header}>
@@ -42,11 +54,7 @@ const Header = () => {
                                 </a>
                             </li>
                             <li className="nav-item mx-2 active">
-                                <a
-                                    href="#"
-                                    onClick={() => navigate('/field')}
-                                    className="nav-link text-uppercase"
-                                >
+                                <a href="#" onClick={() => navigate('/field')} className="nav-link text-uppercase">
                                     {' '}
                                     Mock Interview{' '}
                                 </a>
@@ -58,16 +66,24 @@ const Header = () => {
                                 </a>
                             </li>
                             <li className="nav-item mx-2 active">
-                                <button
-                                    type="button"
-                                    className={`${'btn'} ${'btn-outline-info'} ${'border-0'} ${'text-uppercase'} ${
-                                        classes['text-btn']
-                                    }`}
-                                    data-mdb-ripple-color="dark"
-                                    onClick={() => navigate('/login')}
-                                >
-                                    Login
-                                </button>
+                                {!logined && (
+                                    <button
+                                        type="button"
+                                        className={`${'btn'} ${'btn-outline-info'} ${'border-0'} ${'text-uppercase'} ${
+                                            classes['text-btn']
+                                        }`}
+                                        data-mdb-ripple-color="dark"
+                                        onClick={() => navigate('/login')}
+                                    >
+                                        Login
+                                    </button>
+                                )}
+                                {logined && (
+                                    <div className={classes.avatarLogin}>
+                                        <img src={avt} alt="avt" />
+                                        <h5 onClick={handleLogout}>Logout</h5>
+                                    </div>
+                                )}
                             </li>
                         </ul>
                     </div>
