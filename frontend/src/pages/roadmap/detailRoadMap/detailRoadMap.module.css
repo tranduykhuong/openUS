@@ -1,0 +1,22 @@
+.formDetail {
+    width: 80%;
+    height: 100%;
+    margin: 30px auto;
+    background: linear-gradient(to right, #434a5a, #4286f4) !important;
+    color: #fff;
+    padding: 30px 60px;
+
+}
+
+.titleDetail {
+  color: #fff;
+  font-weight: 500;
+  font-size: 20px;
+  margin-bottom: 40px;
+}
+
+.detailConent {
+  color: #fff;
+  font-weight: 300;
+  font-size: 15px;
+}

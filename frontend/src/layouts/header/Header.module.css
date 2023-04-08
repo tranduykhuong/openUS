@@ -1,10 +1,9 @@
 .header {
   width: 100vw;
-  background-color: aquamarine;
-  position: -webkit-sticky;
-  position: sticky;
+
   top: 0;
   font-weight: 200;
+  margin: 0;
 }
 
 .font-texts{
@@ -29,4 +28,15 @@
   background: #ddd;
   text-decoration: none;
   color: #555;
+}
+.text-btn {
+  font-size: 25.6px;
+  font-weight: 200;
+  padding: 5px;
+  margin-top: 3px;
+  margin-left: 10px;
+}
+
+.nav-link {
+  letter-spacing: -0.8px;
 }
