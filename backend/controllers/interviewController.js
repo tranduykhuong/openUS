@@ -34,7 +34,6 @@ exports.createInterview = catchAsync(async (req, res, next) => {
 
   const question1 = await Data.findOne({question: 'Xin chào'}).lean();
   const question2 = await Data.findOne({question: 'Giới thiệu bản thân'}).lean();
-  console.log(question1.urlVideo);
 
   const inter = {
     idUser,
@@ -51,7 +50,6 @@ exports.createInterview = catchAsync(async (req, res, next) => {
   }
 
   const data = await Interview.create(inter);
-  console.log(data);
 
   res.status(200).json({
       status: 'success',
@@ -194,6 +192,8 @@ exports.createInterviewV2 = catchAsync(async (req, res, next) => {
 
 exports.answer = catchAsync(async (req, res, next) => {
   const { idQuestion, answer } = req.body;
+  console.log(req.body);
+  console.log(req.params.idInterview);
 
   const doc = await Interview.findOne({ _id: req.params.idInterview }).exec();
   const reviews = doc.reviews;
@@ -202,7 +202,7 @@ exports.answer = catchAsync(async (req, res, next) => {
   let nextQue;
   let questionData;
   do {
-    nextQue = await getQuestion(keywords[idQuestion - 1]);
+    nextQue = await getQuestion(keywords[idQuestion - 1 > 0 ? idQuestion - 1 : 0]);
     // nextQue = 'Giới thiệu bản thân';
     questionData = await Data.findOne({question: nextQue}).lean();
     console.log(questionData);
@@ -226,47 +226,48 @@ exports.answer = catchAsync(async (req, res, next) => {
   });
   const openai = new OpenAIApi(configuration);
   
-  // const responseGPT = await openai.createCompletion({
-  //   model: "text-davinci-003",
-  //   prompt: `Cho câu hỏi: ${question}\nĐánh giá câu trả lời: ${answer}`,
-  //   temperature: 0.9,
-  //   max_tokens: 150,
-  //   top_p: 1,
-  //   frequency_penalty: 0,
-  //   presence_penalty: 0.6,
-  // });
-  const responseGPT = {
-    data: {
-      choices: [
-        {
-          text: '\n' +
-            '\n' +
-            'Câu trả lời không trả lời được câu hỏi đã đưa ra. Props và state có sự khác biệt, vì thế, đáp án này là sai.',
-          index: 0,
-          logprobs: null,
-          finish_reason: 'stop'
-        }
-      ]
-    }
-  }
+  const responseGPT = await openai.createCompletion({
+    model: "text-davinci-003",
+    prompt: `Cho câu hỏi: ${question}\nĐánh giá câu trả lời: ${answer}`,
+    temperature: 0.9,
+    max_tokens: 150,
+    top_p: 1,
+    frequency_penalty: 0,
+    presence_penalty: 0.6,
+  });
+  // const responseGPT = {
+  //   data: {
+  //     choices: [
+  //       {
+  //         text: '\n' +
+  //           '\n' +
+  //           'Câu trả lời không trả lời được câu hỏi đã đưa ra. Props và state có sự khác biệt, vì thế, đáp án này là sai.',
+  //         index: 0,
+  //         logprobs: null,
+  //         finish_reason: 'stop'
+  //       }
+  //     ]
+  //   }
+  // }
 
   reviews[idQuestion - 1].answer = answer;
   reviews[idQuestion - 1].feedback = responseGPT.data.choices[0].text;
 
-  reviews.push({
-    question: nextQue,
-    answer: '',
-    feedback: '',
-    score: '',
-    url: questionData.urlVideo
-  });
-
+  if (idQuestion < 3) {
+    reviews.push({
+      question: nextQue,
+      answer: '',
+      feedback: '',
+      score: '',
+      url: questionData.urlVideo
+    });
+  }
 
   const data = await Interview.findOneAndUpdate({ _id: doc._id }, { reviews: reviews }, {
     new: true,
     runValidators: true,
   });
-  console.log(data);
+  // console.log(data);
 });
 
 exports.getOne = catchAsync(async (req, res, next) => {

@@ -7,6 +7,7 @@ const cors = require('cors');
 const Data = require('./models/dataModel')
 
 const interviewRoutes = require('./routes/interviewRoutes');
+// const authRoutes = require('./routes/authRoutes');
 
 const limiter = rateLimit({
   // limiter is now become a middleware function
@@ -24,6 +25,7 @@ app.use(hpp());
 app.use(express.json({ limit: '10mb' }));
 
 app.use('/api/v1/interview', interviewRoutes)
+// app.use('/api/v1/auth', authRoutes)
 
 app.post('/api/v1/addData', async (req, res, next) => { 
   const { question, urlVideo } = req.body || {};
