@@ -51,13 +51,15 @@ exports.createInterview = catchAsync(async (req, res, next) => {
   }
 
   const data = await Interview.create(inter);
+  console.log(data);
 
   res.status(200).json({
       status: 'success',
       data: {
         urlIntro: question1.urlVideo,
         urlVideo: question2.urlVideo,
-        idQuestion: 1
+        idQuestion: 1,
+        idInterview: data._id
       },
   });
 });
