@@ -7,6 +7,8 @@ import SpeechRecognition from 'react-speech-recognition';
 import Webcam from 'react-webcam';
 import adapter from 'webrtc-adapter';
 import axios from 'axios';
+import Evaluate from '../evaluate/Evaluate';
+
 
 const MockInterview = () => {
     const [first, setFirst] = useState(true);
@@ -17,6 +19,8 @@ const MockInterview = () => {
     const [url, setUrl] = useState('');
     const [duration, setDuration] = useState(0);
     const [file, setFile] = useState('first');
+    const [enable, setEnable] = useState(false);
+    const [evalueValue, setEvalueValue] = useState([]);
 
     const apiKey = 'bgLggHqMJye7VQ5wFzsjcuBgzOf3BmTq';
 
@@ -36,16 +40,18 @@ const MockInterview = () => {
         return null;
       }
     };
+    const [evaluate, setEvaluate] = useState(false);
 
     const handleProgress = (progress) => {
         setCurrentTime(progress.playedSeconds);
 
-      if (duration > 0 && progress.playedSeconds > duration - 1.5) {
+      if (duration > 0 && progress.playedSeconds > duration - 1.7) {
         if (first) {
           setFirst(false);
           setUrl(data.urlVideo);
         } else {
           setUrl('https://www.youtube.com/shorts/NHo6oSl1e3g');
+          setEnable(true);
         }
         }
     };
@@ -69,20 +75,40 @@ const MockInterview = () => {
     const capture = () => {
         const imageSrc = webcamRef.current.getScreenshot();
         // handle image source here
-  };
+    };
 
   const handleStopRecord = async () => {
     recorderControls.stopRecording();
     console.log(recorderControls.recordingBlob);
-    setFile(recorderControls.recordingBlob);
+    setEnable(false);
+    if (data.idQuestion <= 3 && !evaluate) {
+      setFile(recorderControls.recordingBlob);
+    }
+
+    if (data.idQuestion === 3) {
+      setEvaluate(true);
+    }
   }
+
+  useEffect(() => {
+    if (idInterview)
+        axios.get(`http://127.0.0.1:5000/api/v1/interview/${idInterview}`).then((res) => {
+            console.log(res.data.data.reviews);
+            setEvalueValue(res.data.data.reviews);
+        });
+    }, [evaluate]);
   
   useEffect(() => {
     console.log(file);
     const fetchData = async () => {
       const audioURL = URL.createObjectURL(file);
-      console.log(audioURL); // In ra đường dẫn URL của file âm thanh
-      // await uploadAudioFile(audioURL);
+      const textConvert = await uploadAudioFile(audioURL);
+      // const textConvert = {
+      //   hypotheses: {
+      //     utterance: "sjdhf"
+      //   }
+      // }
+      console.log(textConvert.hypotheses[0].utterance);
   
       // const link = document.createElement('a');
       // link.href = audioURL;
@@ -96,12 +122,14 @@ const MockInterview = () => {
       const idQuestion = data.idQuestion;
       const postAnswer = await axios.post(`http://127.0.0.1:5000/api/v1/interview/answer/${idInterview}`, {
         idQuestion: idQuestion,
-        answer: 'a'
+        answer: textConvert.hypotheses[0].utterance
       });
 
       console.log(postAnswer);
-      setUrl(postAnswer.data.data.urlVideo);
-      setData(postAnswer.data.data);
+      if (postAnswer.data.data.idQuestion <= 3 && !evaluate) {
+        setUrl(postAnswer.data.data.urlVideo);
+        setData(postAnswer.data.data);
+      }
     }
 
     const handleFirst = async () => {
@@ -126,7 +154,7 @@ const MockInterview = () => {
     } else {
       handleFirst();
     }
-  }, [file]);
+  }, [file, evaluate]);
   
   useEffect(() => {
     const createInterview = async () => {
@@ -167,6 +195,8 @@ const MockInterview = () => {
                 )}
             </div>
 
+            {evaluate && evalueValue.length && <Evaluate evaluate={evalueValue}/>}
+
             <div className={classes.wrapVideoAudio}>
                 <div className={classes.videoContent1}>
                     <div className={classes.videoContent}>
@@ -185,6 +215,7 @@ const MockInterview = () => {
                         type="button"
                         onClick={handleStopRecord}
                         className={`${'btn'} ${'btn-success'} ${classes.customBtn}`}
+                        disabled={!enable}
                     >
                         Trả lời xong
                     </button>

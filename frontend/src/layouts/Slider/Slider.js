@@ -24,10 +24,10 @@ const Slider = () => {
                   <img src={Slider4} alt="slideshow-1" />
               </div>
               <div className={classes.sliderItem}>
-                  <img src={Slider5} alt="slideshow-2" />
+                  <img src={Slider4} alt="slideshow-2" />
               </div>
               <div className={classes.sliderItem}>
-                  <img src={Slider7} alt="slideshow-3" />
+                  <img src={Slider4} alt="slideshow-3" />
               </div>
              
           </div>

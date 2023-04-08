@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import classes from './Login.module.css';
 import { useNavigate } from 'react-router';
+import axios from 'axios';
+
 
 const Login = () => {
     let navigate = useNavigate();
@@ -17,6 +19,7 @@ const Login = () => {
     };
     const passwordChangeHandler = (event) => {
         setEnteredPassword(event.target.value);
+        console.log(enteredPassword);
     };
 
     const handleLogin = (event) => {
@@ -24,23 +27,21 @@ const Login = () => {
         const object = {
             email: enteredAccount,
             password: enteredPassword,
-            loginAs: 'customer',
         };
         setAccountWrong(false);
         setPasswordWrong(false);
-        axios
-            .post(process.env.REACT_APP_ipAddress + '/tcf/v1/users/login', object)
-            .then((res) => {
-                cookie.set('JWT', res.data.token, { path: '/' });
-                // console.log(res.data.token)
-                setLogin(true);
-                navigate('/');
-            })
-            .catch((error) => {
-                console.log(error);
-                setAccountWrong(true);
-                setPasswordWrong(true);
-            });
+        setLogin(true);
+        navigate('/home');
+        localStorage.setItem('logined', 1);
+        // axios.post('http://127.0.0.1:5000/api/v1/auth/login', object).then((res) => {
+        //     localStorage.setItem('logined', 1);
+        //     })
+        //     .catch((error) => {
+        //         console.log(error);
+        //         setAccountWrong(true);
+        //         setPasswordWrong(true);
+        //         localStorage.setItem('logined', 0);
+        //     });
     };
 
     return (
@@ -49,7 +50,7 @@ const Login = () => {
                 <div className={classes.logo}>
                     {<h2 className={'text-uppercase font-weight-bold text-primary text-center'}>OpenUs</h2>}
                 </div>
-                {loggedin && navigate('/')}
+                {loggedin && navigate('/home')}
                 <div className={`${classes.input} ${accountWrong && 'inputWrong'}`} onChange={accountChangeHandler}>
                     <input
                         placeholder="Nhập gmail của bạn"
@@ -106,6 +107,7 @@ const Login = () => {
                         placeholder="Nhập mật khẩu của bạn"
                         spellCheck="false"
                         onChange={passwordChangeHandler}
+                        
                     />
                     {passwordWrong && (
                         <svg
