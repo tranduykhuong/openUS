@@ -1,0 +1,49 @@
+.wrapContentVideo {
+    position: relative;
+    display: flex;
+    background-color: rgba(0, 0, 0, 0.836);
+}
+
+.videoContent {
+    flex: 1;
+    border-radius: 10px;
+    overflow: hidden;
+    margin-top: 10px;
+}
+
+.videoContent > div,
+.videoContent1 > div {
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.videoContent1 {
+    margin: 50px 10px;
+    border-radius: 10px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    width: 450px;
+    height: 450px;
+    margin-top: 90px;
+}
+
+.customBtn {
+    justify-content: center;
+}
+
+.wrapVideoAudio {
+  display: flex;
+  flex-direction: column;
+  margin-right: 20px;
+}
+
+.recordAudio {
+  display: flex;
+  margin: 30px 0;
+  justify-content: center;
+}
+
+.stopBtn {
+  border-radius: 10px;
+}

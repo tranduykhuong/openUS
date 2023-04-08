@@ -1,0 +1,58 @@
+.mockInterview {
+    margin: auto;
+    z-index: 8;
+    width: 100vw;
+    height: 100vh;
+    background-color: white;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 5% 30%;
+    box-sizing: border-box;
+    gap: 35px;
+    position: relative;
+    color: black;
+}
+
+.mockInterviewContent {
+    width: 100%;
+    height: 80%;
+    border-radius: 10px;
+    box-shadow: inset 0 -2em 2em rgba(37, 37, 37, 0.1), 0 0 0 2px rgb(255, 255, 255),
+        0.1em 0.3em 0.2em rgba(44, 42, 42, 0.3);
+}
+
+.iconBackMockInter {
+    
+    padding: 10px;
+    margin-left: 20px;
+}
+
+.iconBackMockInter svg {
+  cursor: pointer;
+}
+
+
+
+.dropdownmock {
+  justify-content: center;
+  display: flex;
+  margin: 0 auto;
+  align-items: center;
+  width: 100%;
+  height: 50px;
+}
+
+.detailContent {
+  margin: 0 20px;
+  font-size: 20px;
+}
+
+.detailContent li {
+  cursor: pointer;
+}
+
+.detailContent li:hover {
+  background: linear-gradient(90deg, #3c37a0 0%, #1313c8 35%, #00d4ff 100%);
+  color: #fff;
+}

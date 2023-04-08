@@ -2,8 +2,7 @@ import React from 'react';
 import classes from './Footer.module.css';
 import { Link } from 'react-router-dom';
 import './layout.css';
-import img2 from './img/img-2.jpg';
-import img3 from './img/img-3.jpg';
+
 
 function Button({ content }) {
     return (
@@ -28,7 +27,7 @@ const Footer = () => {
                                 <div className={classes['single-cta']}>
                                     <div className={classes['cta-text']}>
                                         <h4>Find us</h4>
-                                        <span>1010 Avenue, sw 54321, chandigarh</span>
+                                        <span>224 Nguyen Van Cu, Quan 5, Tp Ho Chi Minh</span>
                                     </div>
                                 </div>
                             </div>
@@ -37,7 +36,7 @@ const Footer = () => {
                                     <i className="fas fa-phone" />
                                     <div className={classes['cta-text']}>
                                         <h4>Call us</h4>
-                                        <span>9876543210 0</span>
+                                        <span>0814488935</span>
                                     </div>
                                 </div>
                             </div>
@@ -46,7 +45,7 @@ const Footer = () => {
                                     <i className="far fa-envelope-open" />
                                     <div className={classes['cta-text']}>
                                         <h4>Mail us</h4>
-                                        <span>mail@info.com</span>
+                                        <span>openus2023@gmail.com</span>
                                     </div>
                                 </div>
                             </div>
@@ -59,33 +58,15 @@ const Footer = () => {
                             <div className={`${'text-center'} ${'text-lg-left'} ${'col-xl-4'} ${'col-lg-4'}`}>
                                 <div className={classes['copyright-text']}>
                                     <p>
-                                        Copyright © 2018, All Right Reserved{' '}
-                                        <a href="https://codepen.io/anupkumar92/">Anup</a>
+                                        Copyright © 2023, Hackathon{' '}
+                                        <a href="https://codepen.io/anupkumar92/">UTE</a>
                                     </p>
                                 </div>
                             </div>
                             <div
                                 className={`${'text-lg-right'} ${'col-xl-6'} ${'col-lg-6'} ${'ml-5'} ${'d-none'} ${'text-right'} ${'d-lg-block'}`}
                             >
-                                <div className={classes['footer-menu']}>
-                                    <ul>
-                                        <li>
-                                            <a href="#">Home</a>
-                                        </li>
-                                        <li>
-                                            <a href="#">Terms</a>
-                                        </li>
-                                        <li>
-                                            <a href="#">Privacy</a>
-                                        </li>
-                                        <li>
-                                            <a href="#">Policy</a>
-                                        </li>
-                                        <li>
-                                            <a href="#">Contact</a>
-                                        </li>
-                                    </ul>
-                                </div>
+                               
                             </div>
                         </div>
                     </div>
