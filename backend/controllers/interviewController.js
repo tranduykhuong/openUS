@@ -199,12 +199,10 @@ exports.answer = catchAsync(async (req, res, next) => {
   const reviews = doc.reviews;
 
   // Tao cau hoi tiep theo
-  const keyword = 'reactjs';
-
   let nextQue;
   let questionData;
   do {
-    nextQue = await getQuestion(keyword[idQuestion - 1]);
+    nextQue = await getQuestion(keywords[idQuestion - 1]);
     // nextQue = 'Giới thiệu bản thân';
     questionData = await Data.findOne({question: nextQue}).lean();
     console.log(questionData);
