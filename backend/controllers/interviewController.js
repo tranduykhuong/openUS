@@ -253,11 +253,11 @@ exports.answer = catchAsync(async (req, res, next) => {
   reviews[idQuestion - 1].answer = answer;
   reviews[idQuestion - 1].feedback = responseGPT.data.choices[0].text;
 
-  if (idQuestion < 3) {
+  if (idQuestion < 4) {
     reviews.push({
       question: nextQue,
       answer: '',
-      feedback: '',
+      feedback: 'Bây giờ chỉ còn cần là thêm thuộc tính "background" vào thẻ HTML để thêm hình nền. Ví dụ: <div style="background-image: url(image.jpg);"></div>\n Thêm URL của video có thể giúp bạn hiểu thêm.',
       score: '',
       url: questionData.urlVideo
     });
