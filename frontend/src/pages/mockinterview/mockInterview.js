@@ -81,22 +81,14 @@ const MockInterview = () => {
     recorderControls.stopRecording();
     console.log(recorderControls.recordingBlob);
     setEnable(false);
-    if (data.idQuestion <= 3 && !evaluate) {
+    if (data.idQuestion <= 4 && !evaluate) {
       setFile(recorderControls.recordingBlob);
     }
 
-    if (data.idQuestion === 3) {
+    if (data.idQuestion === 4) {
       setEvaluate(true);
     }
   }
-
-  useEffect(() => {
-    if (idInterview)
-        axios.get(`http://127.0.0.1:5000/api/v1/interview/${idInterview}`).then((res) => {
-            console.log(res.data.data.reviews);
-            setEvalueValue(res.data.data.reviews);
-        });
-    }, [evaluate]);
   
   useEffect(() => {
     console.log(file);
@@ -109,14 +101,6 @@ const MockInterview = () => {
       //   }
       // }
       console.log(textConvert.hypotheses[0].utterance);
-  
-      // const link = document.createElement('a');
-      // link.href = audioURL;
-      // link.download = 'myaudio.mp3'; // đặt tên file khi tải về
-      // document.body.appendChild(link);
-      // link.click();
-      // document.body.removeChild(link);
-      // URL.revokeObjectURL(url);
 
       // get api answer
       const idQuestion = data.idQuestion;
@@ -126,7 +110,7 @@ const MockInterview = () => {
       });
 
       console.log(postAnswer);
-      if (postAnswer.data.data.idQuestion <= 3 && !evaluate) {
+      if (postAnswer.data.data.idQuestion <= 4 && !evaluate) {
         setUrl(postAnswer.data.data.urlVideo);
         setData(postAnswer.data.data);
       }
@@ -154,6 +138,12 @@ const MockInterview = () => {
     } else {
       handleFirst();
     }
+
+    if (evaluate && idInterview)
+        axios.get(`http://127.0.0.1:5000/api/v1/interview/${idInterview}`).then((res) => {
+            // console.log(res.data.data.reviews);
+            setEvalueValue(res.data.data.reviews);
+        });
   }, [file, evaluate]);
   
   useEffect(() => {

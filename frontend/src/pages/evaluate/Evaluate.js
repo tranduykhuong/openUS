@@ -19,18 +19,21 @@ const Evaluate = ({evaluate}) => {
             </h3>
             <div className={classes.detailConent}>
                 <div style={{ height: 500, overflow: 'auto' }}>
-                    <ul className="list-group text-center" style={{ maxHeight: '300px', overflow: 'auto' }}>
+                    <ul className="list-group text-center px-4 py-3" style={{ maxHeight: '300px', overflow: 'auto' }}>
                         {evaluate.map((item, index) => {
-                            if (index > 0) 
-                            return (
-                                <li key={index} className="list-group-item">
-                                    {item.feedback}
-                                </li>
-                            )
+                            if (index > 0) {
+                                return (
+                                    <li key={index} className="list-group-item p-4">
+                                        {item.feedback}
+                                    </li>
+                                )
+                            }
+                            
                         })}
                     </ul>
                 </div>
             </div>
+            
         </div>
     );
 };
