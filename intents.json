@@ -1,0 +1,89 @@
+{
+    "intents": [
+        {
+            "tag": "htmlp1",
+            "patterns": ["htmlp1", "htmlp1 cơ bản"],
+            "responses": [
+                "Định dạng tài liệu HTML được xác định bởi đuôi tập tin gì",
+                "HTML5 có những tính năng nổi bật nào so với phiên bản HTML trước đó",
+                "Có bao nhiêu thẻ HTML trong một tài liệu HTML chuẩn",
+                "Có bao nhiêu cách để thêm CSS vào HTML"
+            ]
+        },
+        {
+            "tag": "cssp1",
+            "patterns": ["cssp1", "cssp1 cơ bản"],
+            "responses": ["Làm thế nào để thêm hình nền cho một phần tử trong CSS",
+                "Cách sử dụng class và ID trong CSS khác nhau như thế nào"
+            ]
+        },
+        {
+            "tag": "javascriptp1",
+            "patterns": ["javascriptp1", "javascriptp1 cơ bản"],
+            "responses": [
+                "JavaScript là gì và nó được sử dụng để làm gì?",
+                "Những kiểu dữ liệu cơ bản nào có thể được sử dụng trong JavaScript",
+                "Tên gọi của toán tử === trong JavaScript là gì"
+            ]
+        },
+         {
+            "tag": "reactjsp2",
+            "patterns": ["reactjsp2","reactjsp2 cơ bản"],
+            "responses": [
+                            "State và props là gì trong ReactJS",
+                            "Redux là gì và tại sao cần phải sử dụng nó trong ReactJS"
+            ]
+        },
+         {
+            "tag": "debug",
+            "patterns": ["debug","debugging"],
+            "responses": [
+                            "Các phương pháp Debug phổ biến nhất trong lập trình là gì",
+                            "Tại sao cần sử dụng công cụ Debug trong lập trình"
+            ]
+        },
+        {
+            "tag": "reactjsp1",
+            "patterns": ["reactjsp1","reactjsp1 cơ bản"],
+            "responses": [
+                            "ReactJS khác gì so với các thư viện/framework khác",
+                            "ReactJS có những đặc điểm gì nổi bật"
+            ]
+        },
+          {
+            "tag": "responsive ",
+            "patterns": ["responsive", "responsives"],
+            "responses": [
+                            "Responsive Design có ảnh hưởng đến tốc độ tải trang không",
+                            "Các lợi ích của việc sử dụng Responsive Design là gì",
+                            "Làm thế nào để tối ưu hóa Responsive Design"
+            ]
+        },
+        {
+            "tag": "github",
+            "patterns": ["github"],
+            "responses": [
+                            "GitHub có các loại gì",
+                            "Tại sao nên sử dụng GitHub"
+            ]
+        },
+        {
+            "tag": "test",
+            "patterns": ["test","testing"],
+            "responses": [
+                            "Tại sao phải thực hiện testing",
+                            "Các loại testing phổ biến",
+                            "Phương pháp kiểm thử hộp đen là gì"
+            ]
+        },
+        {
+            "tag": "problem",
+            "patterns": ["problem", "problems", "giải quyết vấn đề", "câu hỏi giải quyết vấn đề"],
+            "responses": [
+                            "Hãy tìm cách để giải quyết vấn đề khi trang web của bạn bị tải chậm",
+                            "Bạn đã từng phải đối mặt với một vấn đề khó khăn trong cuộc sống và giải quyết nó như thế nào",
+                            "Bạn đã từng đưa ra một quyết định nhanh trong tình huống cấp bách, bạn đã sử dụng phương pháp nào để đưa ra quyết định đó"
+            ]
+        }
+    ]
+}
